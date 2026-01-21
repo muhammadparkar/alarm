@@ -1,0 +1,950 @@
+/* CSS Variables */
+:root {
+  --bg-dark: #2C343C;
+  --bg-light: #363E46;
+  --gradient-main: linear-gradient(158.53deg, #363E46 14.11%, #2C343C 85.89%);
+  --gradient-panel: linear-gradient(158.53deg, #363E46 -25.92%, #2C343C 82.89%);
+  --gradient-card: linear-gradient(134.17deg, #3F4850 4.98%, #363E46 94.88%);
+  --gradient-clock-outer: linear-gradient(134.17deg, #3E464F 4.99%, #424A53 94.88%);
+  --gradient-clock-inner: linear-gradient(248.53deg, #363E46 -12.81%, #2C343C 305.95%);
+  --gradient-btn-red: linear-gradient(315deg, #FE725C 15.1%, #FD251E 84.37%);
+  --gradient-toggle-on: linear-gradient(100.9deg, #FD2A22 7.36%, #FE6C57 95.45%);
+  --gradient-toggle-track: linear-gradient(134.17deg, #EEF0F5 4.98%, #E6E9EF 94.88%);
+
+  --text-grey: #8E98A2;
+  --text-dim: rgba(142, 152, 162, 0.35);
+  --red-primary: #FD251E;
+  --red-secondary: #FE6C57;
+
+  --shadow-outer: -5px -5px 20px rgba(72, 83, 92, 0.35), 5px 5px 10px rgba(35, 40, 45, 0.7);
+  --shadow-card: -5px -5px 20px rgba(72, 83, 92, 0.35), 13px 14px 12px -6px rgba(35, 40, 45, 0.7);
+  --shadow-inset: inset -12px -12px 30px rgba(72, 83, 92, 0.3), inset 7px 7px 8px rgba(35, 40, 45, 0.25);
+  --shadow-btn-red: -5px -5px 10px rgba(69, 77, 86, 0.35), 5px 5px 10px rgba(24, 30, 36, 0.52), 4px 4px 11px 2px rgba(209, 7, 0, 0.35);
+
+  --font-family: 'Poppins', sans-serif;
+  --border-radius: 20px;
+  --border-radius-lg: 45px;
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family);
+  background: #1a1f24;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* App Container */
+.app-container {
+  width: 100%;
+  max-width: 400px;
+  min-height: 700px;
+  background: var(--gradient-main);
+  border-radius: var(--border-radius-lg);
+  position: relative;
+  padding: 40px 20px 100px;
+  overflow: hidden;
+}
+
+/* Clock Container */
+.clock-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.clock-outer {
+  width: 200px;
+  height: 200px;
+  background: var(--gradient-clock-outer);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 19px 25px 92px -32px rgba(35, 40, 45, 0.35),
+    -20px -20px 61px rgba(72, 83, 92, 0.25),
+    13px 14px 12px -6px rgba(35, 40, 45, 0.5);
+}
+
+.clock-inner {
+  width: 176px;
+  height: 176px;
+  background: var(--gradient-clock-inner);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-inset), inset 10px 11px 30px -1px rgba(35, 40, 45, 0.5);
+}
+
+.clock-face {
+  width: 153px;
+  height: 153px;
+  position: relative;
+  border-radius: 50%;
+}
+
+/* Clock Markings */
+.marking {
+  position: absolute;
+  width: 4px;
+  height: 12px;
+  background: #5D666D;
+  border-radius: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.marking-12 {
+  top: 5px;
+}
+
+.marking-6 {
+  bottom: 5px;
+}
+
+.marking-3 {
+  top: 50%;
+  left: auto;
+  right: 5px;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.marking-9 {
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/* Clock Hands */
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 4px;
+}
+
+.hour-hand {
+  width: 4px;
+  height: 40px;
+  background: var(--text-grey);
+  box-shadow: 1px 1px 3px rgba(24, 30, 36, 0.65);
+}
+
+.minute-hand {
+  width: 3px;
+  height: 55px;
+  background: var(--text-grey);
+  box-shadow: 1px 1px 3px rgba(24, 30, 36, 0.65);
+}
+
+.second-hand {
+  width: 2px;
+  height: 60px;
+  background: var(--red-primary);
+  box-shadow: 1px 3px 4px rgba(209, 7, 0, 0.2);
+}
+
+.clock-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--text-grey);
+  border-radius: 50%;
+  box-shadow: 1px 1px 3px rgba(24, 30, 36, 0.65);
+  z-index: 10;
+}
+
+.clock-center-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: #FD382D;
+  border-radius: 50%;
+}
+
+/* Alarms Panel */
+.alarms-panel {
+  background: var(--gradient-panel);
+  border-radius: var(--border-radius);
+  box-shadow: -2px -5px 20px rgba(72, 83, 92, 0.35);
+  padding: 20px;
+  min-height: 400px;
+  position: relative;
+}
+
+.alarms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.alarms-header h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-grey);
+  letter-spacing: 0.03em;
+}
+
+.more-options-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  gap: 3px;
+}
+
+.more-options-btn .dot {
+  width: 4px;
+  height: 4px;
+  background: var(--text-grey);
+  border-radius: 50%;
+}
+
+/* Alarms List */
+.alarms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.alarms-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.alarms-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.alarms-list::-webkit-scrollbar-thumb {
+  background: var(--text-grey);
+  border-radius: 4px;
+}
+
+/* Alarm Card */
+.alarm-card {
+  background: var(--gradient-card);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-card);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.alarm-card:hover {
+  transform: translateY(-2px);
+}
+
+.alarm-card.disabled {
+  opacity: 0.5;
+}
+
+.alarm-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.alarm-time {
+  font-size: 34px;
+  font-weight: 500;
+  color: var(--text-grey);
+  line-height: 1.2;
+}
+
+.alarm-card.disabled .alarm-time {
+  opacity: 0.35;
+}
+
+.alarm-days {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-grey);
+  letter-spacing: 0.03em;
+}
+
+.alarm-days.active-days {
+  color: var(--red-primary);
+  opacity: 0.45;
+}
+
+.alarm-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.alarm-label-text {
+  font-size: 12px;
+  color: var(--text-grey);
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Toggle Switch - Minimal */
+.toggle-switch {
+  position: relative;
+  width: 36px;
+  height: 18px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #3a424a;
+  border-radius: 18px;
+  transition: background 0.3s ease;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: #6b7580;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.toggle-switch input:checked+.toggle-track {
+  background: rgba(253, 42, 34, 0.25);
+}
+
+.toggle-switch input:checked+.toggle-track .toggle-thumb {
+  transform: translateX(18px);
+  background: var(--gradient-toggle-on);
+  box-shadow: 0 0 8px rgba(253, 42, 34, 0.5);
+}
+
+/* Add Button */
+.add-btn {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 78px;
+  height: 78px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.add-btn-outer {
+  width: 78px;
+  height: 78px;
+  background: linear-gradient(0deg, rgba(69, 77, 86, 0.05), rgba(69, 77, 86, 0.05)),
+    linear-gradient(134.17deg, #3B444D 4.98%, #343E46 94.88%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-outer);
+}
+
+.add-btn-middle {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(134.17deg, #363E46 4.98%, #2C343C 94.88%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -5px -5px 10px rgba(69, 77, 86, 0.35);
+}
+
+.add-btn-inner {
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-btn-red);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-btn-red);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-btn:hover .add-btn-inner {
+  transform: scale(1.05);
+}
+
+.add-btn:active .add-btn-inner {
+  transform: scale(0.95);
+}
+
+.plus-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+
+.plus-icon::before,
+.plus-icon::after {
+  content: '';
+  position: absolute;
+  background: #E3EBF0;
+  border-radius: 2px;
+}
+
+.plus-icon::before {
+  width: 18px;
+  height: 4px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.plus-icon::after {
+  width: 4px;
+  height: 18px;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 20px;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--gradient-main);
+  border-radius: var(--border-radius);
+  width: 100%;
+  max-width: 360px;
+  padding: 25px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.modal-header h3 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-grey);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-grey);
+  font-size: 28px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: var(--red-primary);
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-grey);
+  margin-bottom: 8px;
+}
+
+.form-group input[type="time"],
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 12px 15px;
+  background: var(--bg-dark);
+  border: none;
+  border-radius: 12px;
+  color: var(--text-grey);
+  font-family: var(--font-family);
+  font-size: 16px;
+  box-shadow: inset -2px -2px 6px rgba(72, 83, 92, 0.2),
+    inset 2px 2px 6px rgba(24, 30, 36, 0.5);
+}
+
+.form-group input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: pointer;
+}
+
+.form-group input::placeholder {
+  color: rgba(142, 152, 162, 0.5);
+}
+
+.form-group input:focus {
+  outline: 2px solid var(--red-primary);
+  outline-offset: 2px;
+}
+
+/* Days Selector */
+.days-selector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.day-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-dark);
+  color: var(--text-grey);
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: inset -2px -2px 6px rgba(72, 83, 92, 0.2),
+    inset 2px 2px 6px rgba(24, 30, 36, 0.5);
+  transition: all 0.2s ease;
+}
+
+.day-btn.active {
+  background: var(--gradient-btn-red);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(253, 37, 30, 0.4);
+}
+
+/* Tone Upload */
+.tone-upload {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.tone-input {
+  display: none;
+}
+
+.tone-label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  background: var(--bg-dark);
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: inset -2px -2px 6px rgba(72, 83, 92, 0.2),
+    inset 2px 2px 6px rgba(24, 30, 36, 0.5);
+  transition: background 0.2s ease;
+}
+
+.tone-label:hover {
+  background: #323a42;
+}
+
+.tone-icon {
+  font-size: 18px;
+}
+
+.tone-text {
+  font-size: 14px;
+  color: var(--text-grey);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preview-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: none;
+  background: var(--gradient-card);
+  color: var(--text-grey);
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s ease;
+}
+
+.preview-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.preview-btn:not(:disabled):hover {
+  transform: scale(1.05);
+}
+
+.tone-hint {
+  font-size: 11px;
+  color: rgba(142, 152, 162, 0.6);
+  margin-top: 6px;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.btn {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel {
+  background: var(--gradient-card);
+  color: var(--text-grey);
+  box-shadow: var(--shadow-card);
+}
+
+.btn-cancel:hover {
+  opacity: 0.9;
+}
+
+.btn-save {
+  background: var(--gradient-btn-red);
+  color: #fff;
+  box-shadow: var(--shadow-btn-red);
+}
+
+.btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: -5px -5px 10px rgba(69, 77, 86, 0.35),
+    5px 5px 15px rgba(24, 30, 36, 0.6),
+    4px 4px 15px 4px rgba(209, 7, 0, 0.4);
+}
+
+/* Alert Modal */
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.alert-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.alert-modal {
+  background: var(--gradient-main);
+  border-radius: var(--border-radius);
+  padding: 40px 50px;
+  text-align: center;
+  box-shadow: 0 0 100px rgba(253, 37, 30, 0.3);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.alert-time {
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--red-primary);
+  margin-bottom: 10px;
+}
+
+.alert-label {
+  font-size: 18px;
+  color: var(--text-grey);
+  margin-bottom: 30px;
+}
+
+.btn-dismiss {
+  background: var(--gradient-btn-red);
+  color: #fff;
+  padding: 14px 40px;
+  border-radius: 12px;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn-red);
+  transition: transform 0.2s ease;
+}
+
+.btn-dismiss:hover {
+  transform: scale(1.05);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-grey);
+  opacity: 0.6;
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.empty-state-text {
+  font-size: 14px;
+}
+
+/* Delete button for alarm cards */
+.alarm-delete {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  background: var(--gradient-btn-red);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(253, 37, 30, 0.4);
+  line-height: 1;
+}
+
+.alarm-card:hover .alarm-delete {
+  display: flex;
+}
+
+/* Responsive Design */
+@media (max-width: 420px) {
+  .app-container {
+    max-width: 100%;
+    border-radius: 30px;
+    padding: 30px 15px 90px;
+    min-height: 600px;
+  }
+
+  .clock-outer {
+    width: 160px;
+    height: 160px;
+  }
+
+  .clock-inner {
+    width: 140px;
+    height: 140px;
+  }
+
+  .clock-face {
+    width: 120px;
+    height: 120px;
+  }
+
+  .hour-hand {
+    height: 32px;
+  }
+
+  .minute-hand {
+    height: 44px;
+  }
+
+  .second-hand {
+    height: 48px;
+  }
+
+  .alarms-panel {
+    padding: 15px;
+    min-height: 320px;
+  }
+
+  .alarm-time {
+    font-size: 28px;
+  }
+
+  .alarm-card {
+    padding: 12px 15px;
+  }
+
+  .add-btn {
+    width: 65px;
+    height: 65px;
+    bottom: -25px;
+  }
+
+  .add-btn-outer {
+    width: 65px;
+    height: 65px;
+  }
+
+  .add-btn-middle {
+    width: 54px;
+    height: 54px;
+  }
+
+  .add-btn-inner {
+    width: 50px;
+    height: 50px;
+  }
+
+  .plus-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .plus-icon::before {
+    width: 14px;
+    height: 3px;
+  }
+
+  .plus-icon::after {
+    width: 3px;
+    height: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    max-width: 450px;
+    min-height: 780px;
+  }
+
+  .clock-outer {
+    width: 220px;
+    height: 220px;
+  }
+
+  .clock-inner {
+    width: 192px;
+    height: 192px;
+  }
+
+  .clock-face {
+    width: 168px;
+    height: 168px;
+  }
+
+  .hour-hand {
+    height: 45px;
+  }
+
+  .minute-hand {
+    height: 62px;
+  }
+
+  .second-hand {
+    height: 68px;
+  }
+
+  .alarms-list {
+    max-height: 350px;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    background: linear-gradient(135deg, #1a1f24 0%, #0f1216 100%);
+  }
+
+  .app-container {
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  }
+}
