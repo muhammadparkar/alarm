@@ -320,6 +320,8 @@ function App() {
   const [editingAlarm, setEditingAlarm] = useState(null);
   const [activeAlert, setActiveAlert] = useState(null);
   const [triggeredAlarms, setTriggeredAlarms] = useState(new Set());
+  const [audioUnlocked, setAudioUnlocked] = useState(false);
+  const [audioError, setAudioError] = useState('');
   const audioRef = useRef(null);
 
   // Save alarms to localStorage
@@ -377,6 +379,24 @@ function App() {
     }
   }, []);
 
+  const requestAudioUnlock = async () => {
+    if (!audioRef.current) return;
+    setAudioError('');
+
+    try {
+      audioRef.current.src = DEFAULT_ALARM_SOUND;
+      audioRef.current.loop = false;
+      await audioRef.current.play();
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setAudioUnlocked(true);
+    } catch (err) {
+      console.error(err);
+      setAudioUnlocked(false);
+      setAudioError('Safari blocked autoplay. Tap again with sound on.');
+    }
+  };
+
   const dismissAlarm = () => {
     if (audioRef.current) {
       audioRef.current.pause();
@@ -429,6 +449,15 @@ function App() {
             <span className="dot"></span>
           </button>
         </div>
+
+        {!audioUnlocked && (
+          <div className="audio-permission">
+            <button className="btn btn-audio" onClick={requestAudioUnlock}>
+              Enable sound
+            </button>
+            {audioError && <span className="audio-error">{audioError}</span>}
+          </div>
+        )}
 
         <div className="alarms-list">
           {alarms.length === 0 ? (

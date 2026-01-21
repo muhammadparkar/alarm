@@ -241,6 +241,35 @@ body {
   padding-right: 5px;
 }
 
+.audio-permission {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+}
+
+.btn-audio {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: linear-gradient(134.17deg, #3B444D 4.98%, #343E46 94.88%);
+  color: var(--text-grey);
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-outer);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn-audio:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card);
+}
+
+.audio-error {
+  color: #fd382d;
+  font-size: 12px;
+}
+
 .alarms-list::-webkit-scrollbar {
   width: 4px;
 }
