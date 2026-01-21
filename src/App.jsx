@@ -383,15 +383,26 @@ function App() {
     if (!audioRef.current) return;
     setAudioError('');
 
+    const player = audioRef.current;
+    const prevVolume = player.volume;
+    const prevMuted = player.muted;
+
     try {
-      audioRef.current.src = DEFAULT_ALARM_SOUND;
-      audioRef.current.loop = false;
-      await audioRef.current.play();
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
+      // Unlock audio without producing audible output on Safari
+      player.volume = 0;
+      player.muted = true;
+      player.src = DEFAULT_ALARM_SOUND;
+      player.loop = false;
+      await player.play();
+      player.pause();
+      player.currentTime = 0;
+      player.muted = prevMuted;
+      player.volume = prevVolume;
       setAudioUnlocked(true);
     } catch (err) {
       console.error(err);
+      player.muted = prevMuted;
+      player.volume = prevVolume;
       setAudioUnlocked(false);
       setAudioError('Safari blocked autoplay. Tap again with sound on.');
     }
